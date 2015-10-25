@@ -1,0 +1,83 @@
+Cis552 Project Proposal 
+Team: Thomas Delacour, Pearl Li 
+October 24, 2015
+
+-------------------------------------------------------------------------------
+## Goal Statement 
+-------------------------------------------------------------------------------
+
+We propose to implement a treap data structure in Haskell. A treap, as its name
+suggests, is a data structure which combines the invariants of a heap and of a
+binary search tree. In particular, each node contains a priority and a value.
+The treap is a BST with respect to the value and a heap with respect to the
+priority.  Priorities are randomly generated, resulting in a balanced tree with
+high probability. In our project, we intend to create a full-fledged treap
+library with basic as well as some more interesting, auxiliary functions
+(explained in more detail below). Additionally, if possible, we would like to
+enfore the heap invariants with the use of GADTs. There are also some exciting
+possible extensions to treaps, such as dynamically adjustable priorities based
+off of frequency of node lookups.
+
+-------------------------------------------------------------------------------
+## Uses 
+-------------------------------------------------------------------------------
+
+Some typical use cases include:
+- Using treaps to implement an ordered set.
+- Using treaps to implement a map.
+- In general, any scenario in which a BST would be useful.
+
+The specific advantages of treaps are:
+- As mentioned earlier, treaps, on average, tend to be well balanced.
+- Treaps are easier to implement than deterministically balanced trees (e.g.
+  red-black, avl, 2-3 etc).
+- Due to the randomized priorities, treaps tend towards their average-case
+  runtimes as n increases.
+
+The above advantages mean that treaps are well suited to applications where
+average-case runtime is more important than worst-case runtime, and where n is
+large. 
+
+-------------------------------------------------------------------------------
+## Design 
+-------------------------------------------------------------------------------
+
+A treap implementation would be split into three main parts. First we would
+need to define the treap type, then implement the functions over that type, and
+finally we would need a section devoted to testing the treap type. If we decide
+to implement any of the extensions to the treap data structure, we would create
+separate files for each implemented version.
+
+To design a treap library we will have to decide on a representation for the
+treap, as well as a methodology for enforcing the invariants (GADTs or
+otherwise). A user-facing interface will have to be agreed upon, but otherwise
+the design components to this project are reasonably limited. 
+
+-------------------------------------------------------------------------------
+## Testing 
+-------------------------------------------------------------------------------
+
+This project is well suited to using quickcheck, especially if we first
+implement it without GADTs.  In this case, quickcheck can be used to generate
+arbitrary treaps and ensure that they follow treap invariants, even after
+operations are performed on the structure. Quickcheck and unit testing can both
+be used to ensure that treap operations update the structure correctly. If
+GADTs are implemented, then hopefully we can rely on the compiler to check some
+of the treap invariants.
+
+-------------------------------------------------------------------------------
+## Methodology / "Effort Budget" 
+-------------------------------------------------------------------------------
+
+We will break this project into two main components:
+- Implement treaps without GADTs (15 hrs)
+    - Basic functions: e.g. insert, delete, lookup, size, fromList. (5 hrs)
+    - Bulk operations: union, intersection, set difference. (4 hrs)
+    - Other: height, successor, rank of element, search by rank (2 hrs)
+    - Testing (4 hrs)
+- Refactor to enforce heap invariants using GADTs (15 hrs)
+    - Define new types (2 hrs)
+    - Modify operations (13 hrs)
+
+Time permitting, a possible third component could be implementing extensions to
+the treap type. 
